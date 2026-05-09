@@ -1,20 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/site/Layout";
 import { ArrowRight, Target, BarChart3, Megaphone, GraduationCap, Search, ShoppingBag, Share2, Globe } from "lucide-react";
 import hero from "@/assets/hero-illustration.png";
 import training from "@/assets/training-illustration.png";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "LeadWave — Publicité Digitale & Génération de Leads" },
-      { name: "description", content: "Maximisez votre ROI avec nos campagnes Google Ads, Social Ads et formations en marketing digital." },
-    ],
-  }),
-  component: Index,
-});
-
-function Index() {
+export default function Index() {
   return (
     <Layout>
       {/* HERO */}

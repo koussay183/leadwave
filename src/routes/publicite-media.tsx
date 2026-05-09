@@ -1,18 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/site/Layout";
 import { ArrowRight, LineChart, Rocket, Activity, FileBarChart, Settings2, ClipboardList } from "lucide-react";
 import { useState } from "react";
 import ads from "@/assets/ads-illustration.png";
-
-export const Route = createFileRoute("/publicite-media")({
-  head: () => ({
-    meta: [
-      { title: "Publicité Média — LeadWave" },
-      { name: "description", content: "Stratégies de publicité digitale, Google Ads et social ads pour générer plus de leads et de ventes." },
-    ],
-  }),
-  component: PubliciteMedia,
-});
 
 const faqs = [
   {
@@ -29,7 +19,7 @@ const faqs = [
   },
 ];
 
-function PubliciteMedia() {
+export default function PubliciteMedia() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <Layout>

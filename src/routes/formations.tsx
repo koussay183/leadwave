@@ -1,19 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/site/Layout";
 import { ArrowRight, CheckCircle2, Download, Sparkles, Users, Target, Lightbulb } from "lucide-react";
 import training from "@/assets/training-illustration.png";
 
-export const Route = createFileRoute("/formations")({
-  head: () => ({
-    meta: [
-      { title: "Formations Marketing Digital — LeadWave" },
-      { name: "description", content: "Formations pratiques en SEO, Google Ads, WordPress et réseaux sociaux pour booster votre carrière digitale." },
-    ],
-  }),
-  component: Formations,
-});
-
-function Formations() {
+export default function Formations() {
   return (
     <Layout>
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>

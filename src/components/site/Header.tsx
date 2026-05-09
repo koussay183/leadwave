@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -20,14 +20,17 @@ export function Header() {
         </Link>
         <nav className="hidden md:flex items-center gap-8">
           {nav.map((n) => (
-            <Link
+            <NavLink
               key={n.to}
               to={n.to}
-              className="text-sm font-medium text-foreground/80 hover:text-[var(--brand-blue)] transition-colors"
-              activeProps={{ className: "text-[var(--brand-blue)] font-semibold" }}
+              className={({ isActive }) =>
+                `text-sm font-medium text-foreground/80 hover:text-[var(--brand-blue)] transition-colors ${
+                  isActive ? "text-[var(--brand-blue)] font-semibold" : ""
+                }`
+              }
             >
               {n.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="hidden md:block">

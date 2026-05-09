@@ -1,20 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import contact from "@/assets/contact-illustration.png";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — LeadWave" },
-      { name: "description", content: "Contactez LeadWave pour vos campagnes publicitaires et formations en marketing digital." },
-    ],
-  }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <Layout>
