@@ -1,0 +1,143 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-red: var(--brand-red);
+  --color-surface: var(--surface);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Brand palette derived from logo */
+  --brand-blue: oklch(0.52 0.09 230);     /* #2C6E91 */
+  --brand-yellow: oklch(0.82 0.15 80);    /* #F2B544 */
+  --brand-red: oklch(0.63 0.18 18);       /* #D85059 */
+
+  --background: oklch(0.99 0.005 240);
+  --foreground: oklch(0.18 0.03 240);
+  --surface: oklch(0.97 0.01 230);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 240);
+
+  --primary: var(--brand-blue);
+  --primary-foreground: oklch(0.99 0.005 240);
+  --secondary: var(--brand-yellow);
+  --secondary-foreground: oklch(0.2 0.03 240);
+  --accent: var(--brand-red);
+  --accent-foreground: oklch(0.99 0.005 240);
+
+  --muted: oklch(0.96 0.01 230);
+  --muted-foreground: oklch(0.45 0.02 240);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0.005 240);
+
+  --border: oklch(0.9 0.01 230);
+  --input: oklch(0.92 0.01 230);
+  --ring: var(--brand-blue);
+
+  --gradient-hero: radial-gradient(60% 60% at 80% 10%, color-mix(in oklab, var(--brand-yellow) 30%, transparent), transparent 60%),
+                   radial-gradient(50% 50% at 10% 90%, color-mix(in oklab, var(--brand-red) 25%, transparent), transparent 60%),
+                   linear-gradient(180deg, color-mix(in oklab, var(--brand-blue) 8%, white), white);
+  --gradient-cta: linear-gradient(135deg, var(--brand-blue), color-mix(in oklab, var(--brand-blue) 60%, var(--brand-red)));
+  --shadow-soft: 0 10px 40px -12px color-mix(in oklab, var(--brand-blue) 25%, transparent);
+  --shadow-pop: 0 18px 50px -16px color-mix(in oklab, var(--brand-red) 35%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all;
+  }
+  .btn-primary {
+    background: var(--gradient-cta);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+  .btn-accent {
+    background: var(--brand-red);
+    color: var(--accent-foreground);
+  }
+  .btn-accent:hover { transform: translateY(-2px); }
+  .btn-outline {
+    border: 1.5px solid color-mix(in oklab, var(--brand-blue) 40%, transparent);
+    color: var(--brand-blue);
+    background: transparent;
+  }
+  .btn-outline:hover { background: color-mix(in oklab, var(--brand-blue) 8%, transparent); }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider;
+    background: color-mix(in oklab, var(--brand-yellow) 25%, transparent);
+    color: oklch(0.4 0.12 60);
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+.animate-float { animation: float-slow 6s ease-in-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.6s ease-out both; }
