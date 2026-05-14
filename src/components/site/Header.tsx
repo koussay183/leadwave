@@ -1,17 +1,25 @@
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo.png";
 
-const nav = [
-  { to: "/", label: "Accueil" },
-  { to: "/formations", label: "Nos Formations" },
-  { to: "/publicite-media", label: "Publicité Média" },
-  { to: "/contact", label: "Nous Contacter" },
-];
-
 export function Header() {
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+
+  const nav = [
+    { to: "/", label: t("nav.home") },
+    { to: "/formations", label: t("nav.formations") },
+    { to: "/publicite-media", label: t("nav.media") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
+
+  const toggleLang = () => {
+    const next = i18n.language === "fr" ? "en" : "fr";
+    i18n.changeLanguage(next);
+    localStorage.setItem("lang", next);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -26,7 +34,7 @@ export function Header() {
         <Link
           to="/"
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-blue)] rounded"
-          aria-label="LeadWave — Accueil"
+          aria-label={t("nav.home_label")}
         >
           <img src={logo} alt="LeadWave" className="h-9 sm:h-10 w-auto" width="140" height="40" />
         </Link>
@@ -46,15 +54,23 @@ export function Header() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground/70 hover:text-[var(--brand-blue)] hover:border-[var(--brand-blue)] transition-colors"
+            aria-label="Switch language"
+          >
+            <Globe size={13} />
+            {i18n.language === "fr" ? "EN" : "FR"}
+          </button>
           <Link to="/contact" className="btn btn-primary">
-            Prendre RDV <ArrowRight size={14} />
+            {t("nav.cta")} <ArrowRight size={14} />
           </Link>
         </div>
         <button
           className="md:hidden p-2 -mr-2 rounded-md hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-blue)]"
           onClick={() => setOpen((o) => !o)}
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-label={open ? t("nav.close_menu") : t("nav.open_menu")}
           aria-expanded={open}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -76,9 +92,18 @@ export function Header() {
                 {n.label}
               </NavLink>
             ))}
-            <Link to="/contact" className="btn btn-primary mt-3" onClick={() => setOpen(false)}>
-              Prendre RDV <ArrowRight size={14} />
-            </Link>
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={toggleLang}
+                className="flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-xs font-semibold text-foreground/70 hover:text-[var(--brand-blue)] transition-colors"
+              >
+                <Globe size={13} />
+                {i18n.language === "fr" ? "EN" : "FR"}
+              </button>
+              <Link to="/contact" className="btn btn-primary flex-1 justify-center" onClick={() => setOpen(false)}>
+                {t("nav.cta")} <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
         </div>
       )}
