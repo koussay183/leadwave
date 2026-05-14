@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowRight, Globe } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo.png";
 
@@ -14,12 +14,6 @@ export function Header() {
     { to: "/publicite-media", label: t("nav.media") },
     { to: "/contact", label: t("nav.contact") },
   ];
-
-  const toggleLang = () => {
-    const next = i18n.language === "fr" ? "en" : "fr";
-    i18n.changeLanguage(next);
-    localStorage.setItem("lang", next);
-  };
 
   useEffect(() => {
     if (!open) return;
@@ -54,15 +48,23 @@ export function Header() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-2">
-          <button
-            onClick={toggleLang}
-            className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground/70 hover:text-[var(--brand-blue)] hover:border-[var(--brand-blue)] transition-colors"
-            aria-label="Switch language"
-          >
-            <Globe size={13} />
-            {i18n.language === "fr" ? "EN" : "FR"}
-          </button>
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center rounded-full border border-border bg-muted/40 p-0.5 text-xs font-semibold">
+            {(["fr", "en"] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => { i18n.changeLanguage(lang); localStorage.setItem("lang", lang); }}
+                className={`px-3 py-1 rounded-full transition-colors ${
+                  i18n.language === lang
+                    ? "bg-[var(--brand-blue)] text-white shadow-sm"
+                    : "text-foreground/60 hover:text-[var(--brand-blue)]"
+                }`}
+                aria-label={`Switch to ${lang.toUpperCase()}`}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
           <Link to="/contact" className="btn btn-primary">
             {t("nav.cta")} <ArrowRight size={14} />
           </Link>
@@ -92,14 +94,22 @@ export function Header() {
                 {n.label}
               </NavLink>
             ))}
-            <div className="mt-3 flex gap-2">
-              <button
-                onClick={toggleLang}
-                className="flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-xs font-semibold text-foreground/70 hover:text-[var(--brand-blue)] transition-colors"
-              >
-                <Globe size={13} />
-                {i18n.language === "fr" ? "EN" : "FR"}
-              </button>
+            <div className="mt-3 flex items-center gap-2">
+              <div className="flex items-center rounded-full border border-border bg-muted/40 p-0.5 text-xs font-semibold">
+                {(["fr", "en"] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => { i18n.changeLanguage(lang); localStorage.setItem("lang", lang); }}
+                    className={`px-3 py-1.5 rounded-full transition-colors ${
+                      i18n.language === lang
+                        ? "bg-[var(--brand-blue)] text-white shadow-sm"
+                        : "text-foreground/60 hover:text-[var(--brand-blue)]"
+                    }`}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               <Link to="/contact" className="btn btn-primary flex-1 justify-center" onClick={() => setOpen(false)}>
                 {t("nav.cta")} <ArrowRight size={14} />
               </Link>
