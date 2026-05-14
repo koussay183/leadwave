@@ -73,12 +73,14 @@
   --input: oklch(0.92 0.01 230);
   --ring: var(--brand-blue);
 
-  --gradient-hero: radial-gradient(60% 60% at 80% 10%, color-mix(in oklab, var(--brand-yellow) 30%, transparent), transparent 60%),
-                   radial-gradient(50% 50% at 10% 90%, color-mix(in oklab, var(--brand-red) 25%, transparent), transparent 60%),
-                   linear-gradient(180deg, color-mix(in oklab, var(--brand-blue) 8%, white), white);
-  --gradient-cta: linear-gradient(135deg, var(--brand-blue), color-mix(in oklab, var(--brand-blue) 60%, var(--brand-red)));
-  --shadow-soft: 0 10px 40px -12px color-mix(in oklab, var(--brand-blue) 25%, transparent);
-  --shadow-pop: 0 18px 50px -16px color-mix(in oklab, var(--brand-red) 35%, transparent);
+  /* Subtle hero wash — restrained yellow accent, no red overlay so text stays high-contrast */
+  --gradient-hero: radial-gradient(55% 55% at 85% 0%, color-mix(in oklab, var(--brand-yellow) 18%, transparent), transparent 65%),
+                   linear-gradient(180deg, color-mix(in oklab, var(--brand-blue) 6%, white), white);
+  /* Deep solid brand blue for CTA blocks — much higher white-text contrast */
+  --gradient-cta: var(--brand-blue);
+  --shadow-soft: 0 6px 20px -8px color-mix(in oklab, var(--brand-blue) 22%, transparent),
+                 0 2px 6px -2px color-mix(in oklab, var(--brand-blue) 10%, transparent);
+  --shadow-pop: 0 12px 32px -12px color-mix(in oklab, var(--brand-blue) 30%, transparent);
 }
 
 @layer base {
@@ -95,39 +97,65 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: var(--brand-blue);
   }
   .btn-primary {
-    background: var(--gradient-cta);
+    background: var(--brand-blue);
     color: var(--primary-foreground);
     box-shadow: var(--shadow-soft);
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+  .btn-primary:hover {
+    background: color-mix(in oklab, var(--brand-blue) 88%, black);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-pop);
+  }
   .btn-accent {
     background: var(--brand-red);
     color: var(--accent-foreground);
+    box-shadow: var(--shadow-soft);
   }
-  .btn-accent:hover { transform: translateY(-2px); }
+  .btn-accent:hover {
+    background: color-mix(in oklab, var(--brand-red) 90%, black);
+    transform: translateY(-1px);
+  }
   .btn-outline {
-    border: 1.5px solid color-mix(in oklab, var(--brand-blue) 40%, transparent);
+    border: 1.5px solid color-mix(in oklab, var(--brand-blue) 30%, transparent);
     color: var(--brand-blue);
-    background: transparent;
+    background: white;
   }
-  .btn-outline:hover { background: color-mix(in oklab, var(--brand-blue) 8%, transparent); }
+  .btn-outline:hover {
+    background: color-mix(in oklab, var(--brand-blue) 6%, white);
+    border-color: var(--brand-blue);
+  }
 
   .chip {
-    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider;
-    background: color-mix(in oklab, var(--brand-yellow) 25%, transparent);
-    color: oklch(0.4 0.12 60);
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wider;
+    background: color-mix(in oklab, var(--brand-blue) 10%, white);
+    color: var(--brand-blue);
   }
 
   .blob {
     position: absolute;
     border-radius: 9999px;
-    filter: blur(60px);
-    opacity: 0.55;
+    filter: blur(80px);
+    opacity: 0.35;
     pointer-events: none;
   }
+
+  /* Consistent form control base */
+  .field {
+    @apply w-full rounded-lg border border-input bg-white px-3.5 py-2.5 text-sm transition-colors;
+    @apply outline-none focus:border-[var(--brand-blue)] focus:ring-2 focus:ring-[var(--brand-blue)]/15;
+  }
+}
+
+/* Honor user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-fade-up { animation: none; }
+  * { transition-duration: 0.01ms !important; }
 }
 
 @keyframes float-slow {
