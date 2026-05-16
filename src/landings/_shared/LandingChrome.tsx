@@ -42,10 +42,10 @@ export function LandingHeader({
         <div className="flex items-center gap-3 sm:gap-4">
           {showPhone && (
             <a
-              href="tel:+21628776710"
+              href="tel:+21627945870"
               className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-[var(--brand-blue)]"
             >
-              <Phone size={14} /> +216 28 776 710
+              <Phone size={14} /> +216 27 945 870
             </a>
           )}
           <a
@@ -119,7 +119,7 @@ export function LandingFooter() {
         </div>
         <address className="not-italic text-sm text-muted-foreground space-y-2.5">
           <div className="flex gap-2"><MapPin size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> Avenue Farhat Hached, Megrine Sidi Rezig, 2033 — Tunisie</div>
-          <div className="flex gap-2"><Phone size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="tel:+21628776710" className="hover:text-[var(--brand-blue)]">+216 28 776 710</a></div>
+          <div className="flex gap-2"><Phone size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="tel:+21627945870" className="hover:text-[var(--brand-blue)]">+216 27 945 870</a></div>
           <div className="flex gap-2"><Mail size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="mailto:info@leadwave.tn" className="hover:text-[var(--brand-blue)]">info@leadwave.tn</a></div>
         </address>
         <div className="text-sm">

@@ -24,6 +24,14 @@ import { Seo } from "@/components/site/Seo";
 import { brandLogos } from "@/components/site/BrandLogos";
 import { HeroIllustration } from "@/components/site/HeroIllustration";
 import training from "@/assets/training-illustration.png";
+import partner1 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM.jpeg";
+import partner2 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (1).jpeg";
+import partner3 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (2).jpeg";
+import partner4 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (3).jpeg";
+import partner5 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (4).jpeg";
+import partner6 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.29 PM.jpeg";
+
+const partners = [partner1, partner2, partner3, partner4, partner5, partner6];
 
 export default function Index() {
   const { t } = useTranslation();
@@ -48,7 +56,7 @@ export default function Index() {
         },
         contactPoint: {
           "@type": "ContactPoint",
-          telephone: "+216 28 776 710",
+          telephone: "+216 27 945 870",
           contactType: "customer service",
           email: "info@leadwave.tn",
           areaServed: ["TN", "FR", "EU"],
@@ -413,6 +421,37 @@ export default function Index() {
               </figcaption>
             </figure>
           ))}
+        </div>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="bg-white py-20 border-y border-border" aria-labelledby="partners-h2">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="chip">{t("home.partners.chip", "Nos partenaires")}</span>
+            <h2 id="partners-h2" className="mt-4 text-3xl sm:text-4xl font-bold">
+              {t("home.partners.title", "Ils nous font confiance")}
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              {t("home.partners.description", "Des marques et organisations qui collaborent avec LeadWave Agency.")}
+            </p>
+          </div>
+          <ul className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
+            {partners.map((src, i) => (
+              <li
+                key={i}
+                className="flex items-center justify-center h-24 rounded-2xl border border-border bg-white p-4 hover:-translate-y-1 transition-transform"
+                style={{ boxShadow: "var(--shadow-soft)" }}
+              >
+                <img
+                  src={src}
+                  alt={`Partenaire ${i + 1}`}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

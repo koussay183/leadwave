@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { saveLead } from "@/lib/leads";
 import type { FormField } from "@/landings/types";
+import { ThankYouOverlay } from "./ThankYouOverlay";
 
 type Props = {
   landingKey: string;
@@ -48,17 +49,7 @@ export function LandingForm({
   }
 
   if (status === "success") {
-    return (
-      <div className={`rounded-2xl border border-border bg-card p-8 text-center ${className}`}>
-        <div className="mx-auto h-14 w-14 grid place-items-center rounded-full bg-emerald-100 text-emerald-700">
-          <CheckCircle2 size={28} />
-        </div>
-        <h3 className="mt-4 text-xl font-bold">Merci, votre demande est bien reçue !</h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Notre équipe vous contactera très bientôt.
-        </p>
-      </div>
-    );
+    return <ThankYouOverlay onClose={() => setStatus("idle")} />;
   }
 
   return (

@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import contact from "@/assets/contact-illustration.png";
+import { ThankYouOverlay } from "@/components/site/ThankYouOverlay";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -10,13 +11,13 @@ export default function Contact() {
 
   const infoCards = [
     { i: Mail, t: t("contact.email_label"), v: "info@leadwave.tn", c: "var(--brand-blue)" },
-    { i: Phone, t: t("contact.phone_label"), v: "+216 28 776 710", c: "var(--brand-red)" },
+    { i: Phone, t: t("contact.phone_label"), v: "+216 27 945 870", c: "var(--brand-red)" },
     { i: MapPin, t: t("contact.address_label"), v: t("contact.address_value"), c: "var(--brand-yellow)" },
   ];
 
   const contactDetails = [
     { i: MapPin, t: t("contact.location_label"), v: t("contact.location_value"), c: "var(--brand-red)" },
-    { i: Phone, t: t("contact.call_label"), v: "+216 28 776 710", c: "var(--brand-blue)" },
+    { i: Phone, t: t("contact.call_label"), v: "+216 27 945 870", c: "var(--brand-blue)" },
     { i: Mail, t: t("contact.email_send_label"), v: "info@leadwave.tn", c: "var(--brand-yellow)" },
   ];
 
@@ -84,9 +85,9 @@ export default function Contact() {
           <button className="btn btn-primary w-full sm:w-auto">
             <Send size={16} /> {t("contact.submit")}
           </button>
-          {sent && <p className="text-sm text-[var(--brand-blue)] font-semibold">{t("contact.success")}</p>}
         </form>
       </section>
+      {sent && <ThankYouOverlay onClose={() => setSent(false)} />}
     </Layout>
   );
 }
