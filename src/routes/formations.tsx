@@ -3,6 +3,14 @@ import { Layout } from "@/components/site/Layout";
 import { ArrowRight, CheckCircle2, Download, Sparkles, Users, Target, Lightbulb } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import training from "@/assets/training-illustration.png";
+import partner1 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM.jpeg";
+import partner2 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (1).jpeg";
+import partner3 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (2).jpeg";
+import partner4 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (3).jpeg";
+import partner5 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (4).jpeg";
+import partner6 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.29 PM.jpeg";
+
+const partners = [partner1, partner2, partner3, partner4, partner5, partner6];
 
 export default function Formations() {
   const { t } = useTranslation();
@@ -89,11 +97,22 @@ export default function Formations() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
         <span className="chip">{t("formations.trust_chip")}</span>
         <h2 className="mt-4 text-3xl sm:text-4xl font-bold">{t("formations.trust_title")}</h2>
-        <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center opacity-70">
-          {["Acme", "Globex", "Initech", "Umbrella", "Stark", "Wayne"].map((b) => (
-            <div key={b} className="font-display font-bold text-xl text-muted-foreground">{b}</div>
+        <ul className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center">
+          {partners.map((src, i) => (
+            <li
+              key={i}
+              className="flex items-center justify-center h-24 rounded-2xl border border-border bg-white p-4 hover:-translate-y-1 transition-transform"
+              style={{ boxShadow: "var(--shadow-soft)" }}
+            >
+              <img
+                src={src}
+                alt={`Partenaire ${i + 1}`}
+                className="max-h-full max-w-full object-contain"
+                loading="lazy"
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     </Layout>
   );
