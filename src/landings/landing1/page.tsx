@@ -20,10 +20,10 @@ import {
   Rocket,
   Quote,
   ShieldCheck,
-  Linkedin,
 } from "lucide-react";
 import { Seo } from "@/components/site/Seo";
 import { LandingForm } from "@/components/site/LandingForm";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { brandLogos } from "@/components/site/BrandLogos";
 import {
   Section,
@@ -59,23 +59,17 @@ const photos = {
   moduleOptim: unsplash("photo-1611926653458-09294b3142bf", 900),
   case1: unsplash("photo-1556761175-5973dc0f32e7", 900),
   case2: unsplash("photo-1542744173-8e7e53415bb0", 900),
-  instructor: unsplash("photo-1560250097-0b93528c311a", 700),
-  t1: unsplash("photo-1472099645785-5658abf4ff4e", 200),
-  t2: unsplash("photo-1494790108377-be9c29b29330", 200),
-  t3: unsplash("photo-1507003211169-0a1dd7228f2d", 200),
 };
 
 const nav = [
   { href: "#formation", label: "La formation" },
   { href: "#programme", label: "Programme" },
   { href: "#formateur", label: "Formateur" },
-  { href: "#temoignages", label: "Témoignages" },
   { href: "#faq", label: "FAQ" },
 ];
 
 // Realistic, verifiable numbers — no inflated claims
 const stats = [
-  { icon: Users, value: "+120", label: "Apprenants formés" },
   { icon: TrendingUp, value: "×3,2", label: "ROI moyen constaté" },
   { icon: Target, value: "−35 %", label: "Coût par lead moyen" },
   { icon: Award, value: "4,9 / 5", label: "Note des apprenants" },
@@ -83,9 +77,8 @@ const stats = [
 
 const courseFeatures = [
   { icon: Clock, k: "Durée", v: "6 semaines" },
-  { icon: MonitorPlay, k: "Format", v: "Live + replay" },
+  { icon: MonitorPlay, k: "Format", v: "Présentiel + En ligne" },
   { icon: GraduationCap, k: "Niveau", v: "Débutant → Avancé" },
-  { icon: ShieldCheck, k: "Certification", v: "Incluse" },
 ];
 
 const modules = [
@@ -96,7 +89,7 @@ const modules = [
     desc:
       "Comment architecturer campagnes, groupes d'annonces et mots-clés pour un compte orienté génération de leads — sans dupliquer ni perdre en performance.",
     photo: photos.moduleAccount,
-    bullets: ["Convention de nommage pro", "SKAG vs. STAG : quand utiliser quoi", "Stratégies d'enchères par objectif"],
+    bullets: [],
   },
   {
     n: "02",
@@ -105,7 +98,7 @@ const modules = [
     desc:
       "Mettez en place un tracking fiable : GTM, Google Analytics 4 et conversions Google Ads — y compris enhanced conversions et import des conversions hors ligne.",
     photo: photos.moduleTracking,
-    bullets: ["GTM de A à Z", "Enhanced conversions", "Audit de tracking client"],
+    bullets: ["GTM de A à Z", "Audit de tracking client"],
   },
   {
     n: "03",
@@ -123,7 +116,7 @@ const modules = [
     desc:
       "Méthodes d'optimisation hebdomadaires pour baisser le coût par lead, scaler les campagnes performantes et arrêter proprement celles qui perdent.",
     photo: photos.moduleOptim,
-    bullets: ["Routine d'optimisation hebdo", "Scripts Google Ads utiles", "Reporting actionnable"],
+    bullets: ["Routine d'optimisation hebdo", "Reporting actionnable"],
   },
 ];
 
@@ -161,30 +154,6 @@ const cases = [
   },
 ];
 
-const testimonials = [
-  {
-    photo: photos.t1,
-    quote:
-      "La formation est concrète, basée sur de vrais comptes. Dès la semaine 2, j'appliquais les méthodes sur mes propres campagnes — résultat : −30 % de CPL en un mois.",
-    name: "Sami Ben Romdhane",
-    role: "Marketing Manager · SaaS B2B",
-  },
-  {
-    photo: photos.t2,
-    quote:
-      "Le tracking GA4 et GTM, je m'en remettais à un développeur. Aujourd'hui je le fais moi-même, proprement. Le module tracking vaut à lui seul le prix de la formation.",
-    name: "Lina Trabelsi",
-    role: "Freelance Marketing",
-  },
-  {
-    photo: photos.t3,
-    quote:
-      "On a doublé nos leads qualifiés sans augmenter le budget. Le formateur prend vraiment le temps d'auditer ton compte — pas un cours générique.",
-    name: "Mehdi Karoui",
-    role: "Dirigeant · Services BtoB",
-  },
-];
-
 const faqs = [
   {
     q: "Faut-il déjà avoir une expérience Google Ads ?",
@@ -192,19 +161,11 @@ const faqs = [
   },
   {
     q: "Quel est le rythme et le format ?",
-    a: "6 semaines, 2 sessions live par semaine (2 h chacune), plus du travail pratique entre les sessions. Tout est enregistré et disponible en replay à vie.",
+    a: "Le rythme s'adapte au niveau moyen du groupe. La formation est basée sur des cas pratiques réels pour apprendre concrètement et progresser efficacement.",
   },
   {
     q: "Vais-je travailler sur de vrais comptes ?",
-    a: "Oui. Vous avez accès à un compte démo réel et à des cas anonymisés issus de nos clients. C'est non négociable : on apprend en faisant.",
-  },
-  {
-    q: "Y a-t-il un accompagnement après la formation ?",
-    a: "30 jours de support questions illimité après la fin de la formation, plus l'accès à vie à notre communauté Slack d'apprenants.",
-  },
-  {
-    q: "La certification est-elle reconnue ?",
-    a: "Le certificat LeadWave est reconnu par notre réseau d'agences et de clients partenaires. Nous préparons également à la certification officielle Google Ads.",
+    a: "Oui. Vous allez travailler et analyser des comptes réels ainsi que des cas concrets issus de campagnes et projets réels.",
   },
   {
     q: "Comment se passe l'inscription ?",
@@ -297,14 +258,6 @@ export default function Landing1Page({
               </ul>
 
               <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {[photos.t1, photos.t2, photos.t3].map((p) => (
-                      <img key={p} src={p} alt="" className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border-2 border-white object-cover" loading="lazy" />
-                    ))}
-                  </div>
-                  <span className="text-muted-foreground font-medium">+120 apprenants formés</span>
-                </div>
                 <div className="flex items-center gap-1 text-[var(--brand-yellow)]">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
@@ -476,14 +429,39 @@ export default function Landing1Page({
                 aria-hidden
                 className="absolute -inset-4 sm:-inset-6 -z-0 rounded-[40%_60%_50%_50%/40%_40%_60%_60%] bg-[color-mix(in_oklab,var(--brand-yellow)_22%,transparent)]"
               />
-              <img
-                src={photos.instructor}
-                alt="Portrait du formateur Google Ads"
-                className="relative z-10 w-full h-auto rounded-3xl border border-border object-cover aspect-[4/5]"
-                loading="lazy"
-              />
-              <div className="relative z-10 -mt-10 mx-6 rounded-2xl bg-white border border-border p-4 shadow-[var(--shadow-soft)] flex items-center gap-3">
-                <IconTile icon={Linkedin} />
+              <div
+                className="relative z-10 w-full aspect-[4/5] rounded-3xl border border-border overflow-hidden flex flex-col items-center justify-center text-center p-8"
+                style={{
+                  background:
+                    "radial-gradient(60% 60% at 50% 0%, color-mix(in oklab, var(--brand-yellow) 18%, transparent), transparent 70%), linear-gradient(180deg, color-mix(in oklab, var(--brand-blue) 8%, white), white)",
+                }}
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                  style={{
+                    backgroundImage: "radial-gradient(circle, var(--brand-blue) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                  }}
+                />
+                <div className="relative grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-xs">
+                  {[Award, BarChart3, Target, ShieldCheck].map((Icon, i) => (
+                    <div
+                      key={i}
+                      className="aspect-square grid place-items-center rounded-2xl bg-white border border-border text-[var(--brand-blue)]"
+                      style={{ boxShadow: "var(--shadow-soft)" }}
+                    >
+                      <Icon size={28} />
+                    </div>
+                  ))}
+                </div>
+                <div className="relative mt-8 text-xs font-bold uppercase tracking-wider text-[var(--brand-blue)]">
+                  LeadWave · Formation Pro
+                </div>
+                <div className="relative mt-1 text-base font-bold">8 ans en publicité digitale</div>
+              </div>
+              <div className="relative z-10 -mt-6 mx-6 rounded-2xl bg-white border border-border p-4 shadow-[var(--shadow-soft)] flex items-center gap-3">
+                <IconTile icon={ShieldCheck} />
                 <div>
                   <div className="text-xs text-muted-foreground">Certifications actives</div>
                   <div className="font-semibold text-sm">Google Ads · GA4 · Meta Blueprint</div>
@@ -608,101 +586,6 @@ export default function Landing1Page({
           </div>
         </Section>
 
-        {/* ─── TÉMOIGNAGES ─── */}
-        <Section id="temoignages" tone="white" ariaLabelledBy="testimonials-h2">
-          <SectionHeader
-            id="testimonials-h2"
-            eyebrow="Témoignages"
-            title="Ce que disent les apprenants"
-            align="center"
-          />
-          <div className="mt-3 flex items-center justify-center gap-1.5 text-[var(--brand-yellow)]">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
-            ))}
-            <span className="ml-1 text-sm text-muted-foreground font-medium">4,9 / 5 — 87 avis</span>
-          </div>
-
-          <div className="mt-10 sm:mt-12 grid md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <Card key={t.name} as="figure" className="p-6 sm:p-7 flex flex-col">
-                <div className="flex items-center gap-1 text-[var(--brand-yellow)]">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
-                  ))}
-                </div>
-                <blockquote className="mt-4 text-foreground/85 leading-relaxed flex-1 text-sm sm:text-base">
-                  « {t.quote} »
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3">
-                  <img src={t.photo} alt="" className="h-11 w-11 rounded-full object-cover" loading="lazy" />
-                  <div>
-                    <div className="font-semibold text-sm">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.role}</div>
-                  </div>
-                </figcaption>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        {/* ─── CE QUE VOUS OBTENEZ ─── */}
-        <Section tone="surface" ariaLabelledBy="pricing-h2">
-          <SectionHeader
-            id="pricing-h2"
-            eyebrow="Ce que vous obtenez"
-            title="Tout ce qui est inclus dans la formation"
-            align="center"
-          />
-          <Card className="mt-10 overflow-hidden max-w-4xl mx-auto">
-            <div className="p-6 sm:p-8 text-white relative overflow-hidden" style={{ background: "var(--brand-blue)" }}>
-              <div
-                aria-hidden
-                className="absolute -top-16 -right-16 w-56 h-56 rounded-full opacity-20"
-                style={{ background: "var(--brand-yellow)" }}
-              />
-              <div className="relative flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <div className="text-xs font-bold uppercase tracking-wider opacity-90">Pack complet · Session 2026</div>
-                  <h3 className="mt-1 text-2xl sm:text-3xl font-bold">Formation Google Ads — Génération de leads</h3>
-                </div>
-                <div className="text-right">
-                  <div className="text-[11px] opacity-90">Investissement</div>
-                  <div className="text-3xl sm:text-4xl font-extrabold">Sur devis</div>
-                </div>
-              </div>
-            </div>
-            <ul className="p-6 sm:p-8 grid sm:grid-cols-2 gap-x-6 gap-y-3">
-              {[
-                "6 semaines de formation live (replay inclus)",
-                "Accès à un compte démo Google Ads",
-                "Templates, checklists et scripts prêts à l'emploi",
-                "Audit personnel de votre compte (1 h)",
-                "Communauté Slack des apprenants",
-                "Certificat LeadWave en fin de formation",
-                "Support questions illimité pendant 30 jours",
-                "Replays disponibles à vie",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2.5 text-sm">
-                  <CheckCircle2 size={17} className="text-[var(--brand-blue)] mt-0.5 shrink-0" />
-                  <span className="text-foreground/85">{t}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="p-6 sm:p-8 pt-0">
-              <a
-                href="#inscription"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--brand-blue)] px-5 py-3.5 text-sm font-semibold text-white hover:bg-[color-mix(in_oklab,var(--brand-blue)_88%,black)] transition-colors"
-              >
-                Réserver ma place — places limitées <ArrowRight size={16} />
-              </a>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                Sans engagement initial · Devis personnalisé sous 24 h
-              </p>
-            </div>
-          </Card>
-        </Section>
-
         {/* ─── FAQ ─── */}
         <Section id="faq" tone="white" ariaLabelledBy="faq-h2">
           <SectionHeader id="faq-h2" eyebrow="FAQ" title="Vos questions, nos réponses" align="center" />
@@ -721,6 +604,7 @@ export default function Landing1Page({
       </main>
 
       <LandingFooter />
+      <WhatsAppFab />
     </div>
   );
 }
