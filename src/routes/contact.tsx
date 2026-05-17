@@ -1,13 +1,37 @@
 import { Layout } from "@/components/site/Layout";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { useState } from "react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import contact from "@/assets/contact-illustration.png";
 import { ThankYouOverlay } from "@/components/site/ThankYouOverlay";
+import { saveContactMessage } from "@/lib/contactMessages";
 
 export default function Contact() {
   const { t } = useTranslation();
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
+
+  function updateField<K extends keyof typeof form>(name: K, value: string) {
+    setForm((s) => ({ ...s, [name]: value }));
+  }
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    try {
+      await saveContactMessage(form);
+      setSent(true);
+      setForm({ name: "", email: "", company: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      setError("Un problème est survenu. Réessayez dans un instant.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   const infoCards = [
     { i: Mail, t: t("contact.email_label"), v: "info@leadwave.tn", c: "var(--brand-blue)" },
@@ -70,20 +94,29 @@ export default function Contact() {
         <form
           className="lg:col-span-3 rounded-3xl bg-card border border-border p-6 sm:p-10 space-y-5"
           style={{ boxShadow: "var(--shadow-soft)" }}
-          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          onSubmit={onSubmit}
         >
           <h3 className="text-2xl font-bold">{t("contact.form_title")}</h3>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label={t("contact.field_name")} name="name" />
-            <Field label={t("contact.field_email")} name="email" type="email" />
+            <Field label={t("contact.field_name")} name="name" value={form.name} onChange={(v) => updateField("name", v)} />
+            <Field label={t("contact.field_email")} name="email" type="email" value={form.email} onChange={(v) => updateField("email", v)} />
           </div>
-          <Field label={t("contact.field_company")} name="company" />
+          <Field label={t("contact.field_company")} name="company" required={false} value={form.company} onChange={(v) => updateField("company", v)} />
           <div>
-            <label className="text-sm font-semibold">{t("contact.field_message")}</label>
-            <textarea required rows={5} className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-[var(--brand-blue)]" />
+            <label className="text-sm font-semibold" htmlFor="message">{t("contact.field_message")}</label>
+            <textarea
+              id="message"
+              required
+              rows={5}
+              value={form.message}
+              onChange={(e) => updateField("message", e.target.value)}
+              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-[var(--brand-blue)]"
+            />
           </div>
-          <button className="btn btn-primary w-full sm:w-auto">
-            <Send size={16} /> {t("contact.submit")}
+          {error && <p className="text-sm text-[var(--brand-red)]">{error}</p>}
+          <button type="submit" disabled={submitting} className="btn btn-primary w-full sm:w-auto disabled:opacity-60">
+            {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            {submitting ? "Envoi en cours…" : t("contact.submit")}
           </button>
         </form>
       </section>
@@ -92,11 +125,33 @@ export default function Contact() {
   );
 }
 
-function Field({ label, name, type = "text" }: { label: string; name: string; type?: string }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  required = true,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  value: string;
+  onChange: (v: string) => void;
+  required?: boolean;
+}) {
   return (
     <div>
       <label className="text-sm font-semibold" htmlFor={name}>{label}</label>
-      <input id={name} name={name} type={type} required className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-[var(--brand-blue)]" />
+      <input
+        id={name}
+        name={name}
+        type={type}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-[var(--brand-blue)]"
+      />
     </div>
   );
 }

@@ -22,6 +22,7 @@ import { getLeadsByKey } from "@/lib/leads";
 import { FormEditor } from "./admin/FormEditor";
 import { PathEditor } from "./admin/PathEditor";
 import { SubmissionsTable } from "./admin/SubmissionsTable";
+import { ContactMessagesTable } from "./admin/ContactMessagesTable";
 import logo from "@/assets/logo.png";
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? "leadwave123@@2";
@@ -113,7 +114,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 max-w-7xl mx-auto w-full">
         {!firebaseConfigured && <FirebaseWarning />}
         {!selected ? (
-          <LandingsTable landings={landings} loading={loading} onOpen={setSelectedKey} />
+          <>
+            <ContactMessagesTable />
+            <LandingsTable landings={landings} loading={loading} onOpen={setSelectedKey} />
+          </>
         ) : (
           <LandingDetail
             key={selected.key}
