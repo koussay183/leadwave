@@ -5,6 +5,7 @@ import FormationsPage from "./routes/formations";
 import PubliciteMediaPage from "./routes/publicite-media";
 import ContactPage from "./routes/contact";
 import AdminPage from "./routes/admin";
+import MerciPage from "./routes/merci";
 import { useLandings } from "./landings/useLandings";
 
 function NotFoundPage() {
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/publicite-media" element={<PubliciteMediaPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/merci" element={<MerciPage />} />
       {landings.map((l) => {
         const Comp = l.component;
         return <Route key={l.key} path={l.slug} element={<Comp slug={l.slug} fields={l.fields} />} />;

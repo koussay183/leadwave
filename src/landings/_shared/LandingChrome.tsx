@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Phone, MapPin, Mail } from "lucide-react";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png";
@@ -20,16 +20,18 @@ export function LandingHeader({
   ctaLong?: string;
   showPhone?: boolean;
 }) {
+  const location = useLocation();
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-white/90 border-b border-border/60">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
-        <Link
-          to="/"
+        <a
+          href={location.pathname}
+          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-blue)] rounded"
-          aria-label="Retour à l'accueil LeadWave"
+          aria-label="LeadWave"
         >
           <img src={logo} alt="LeadWave" className="h-8 sm:h-9 w-auto" width="120" height="36" />
-        </Link>
+        </a>
         {anchors.length > 0 && (
           <nav aria-label="Sections de la page" className="hidden lg:flex items-center gap-7 text-sm">
             {anchors.map((a) => (
@@ -120,7 +122,7 @@ export function LandingFooter() {
         <address className="not-italic text-sm text-muted-foreground space-y-2.5">
           <div className="flex gap-2"><MapPin size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> Avenue Farhat Hached, Megrine Sidi Rezig, 2033 — Tunisie</div>
           <div className="flex gap-2"><Phone size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="tel:+21627945870" className="hover:text-[var(--brand-blue)]">+216 27 945 870</a></div>
-          <div className="flex gap-2"><Mail size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="mailto:info@leadwave.tn" className="hover:text-[var(--brand-blue)]">info@leadwave.tn</a></div>
+          <div className="flex gap-2"><Mail size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" /> <a href="mailto:leadwavec@gmail.com" className="hover:text-[var(--brand-blue)]">leadwavec@gmail.com</a></div>
         </address>
         <div className="text-sm">
           <div className="font-semibold mb-2">Liens utiles</div>

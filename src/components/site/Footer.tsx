@@ -57,7 +57,7 @@ export function Footer() {
             </div>
             <div className="flex gap-2">
               <Mail size={16} className="text-[var(--brand-red)] mt-0.5 shrink-0" />
-              <a href="mailto:info@leadwave.tn" className="hover:text-[var(--brand-blue)]">info@leadwave.tn</a>
+              <a href="mailto:leadwavec@gmail.com" className="hover:text-[var(--brand-blue)]">leadwavec@gmail.com</a>
             </div>
           </address>
         </div>

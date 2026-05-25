@@ -58,7 +58,7 @@ export default function Index() {
           "@type": "ContactPoint",
           telephone: "+216 27 945 870",
           contactType: "customer service",
-          email: "info@leadwave.tn",
+          email: "leadwavec@gmail.com",
           areaServed: ["TN", "FR", "EU"],
           availableLanguage: ["French", "English", "Arabic"],
         },

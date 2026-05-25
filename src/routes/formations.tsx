@@ -3,6 +3,9 @@ import { Layout } from "@/components/site/Layout";
 import { ArrowRight, CheckCircle2, Download, Sparkles, Users, Target, Lightbulb } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import training from "@/assets/training-illustration.png";
+import googleAdsPdf from "@/assets/Formation Google Ads — Génération de Leads Durée totale _ 24 heures.pdf?url";
+import wordpressPdf from "@/assets/formation- Conception et Gestion de Projets Web avec WordPress.pdf?url";
+import seoPdf from "@/assets/Formation- SEO- LEAD WAVE.pdf?url";
 import partner1 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM.jpeg";
 import partner2 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (1).jpeg";
 import partner3 from "@/assets/WhatsApp Image 2026-05-16 at 7.45.22 PM (2).jpeg";
@@ -23,9 +26,9 @@ export default function Formations() {
   ];
 
   const courses = [
-    { tag: t("formations.seo_tag"), color: "var(--brand-blue)", title: t("formations.seo_title"), desc: t("formations.seo_desc") },
-    { tag: t("formations.cms_tag"), color: "var(--brand-yellow)", title: t("formations.cms_title"), desc: t("formations.cms_desc") },
-    { tag: t("formations.ads_tag"), color: "var(--brand-red)", title: t("formations.ads_title"), desc: t("formations.ads_desc") },
+    { tag: t("formations.seo_tag"), color: "var(--brand-blue)", title: t("formations.seo_title"), desc: t("formations.seo_desc"), pdf: seoPdf as string, filename: "Formation-SEO-LeadWave.pdf" },
+    { tag: t("formations.cms_tag"), color: "var(--brand-yellow)", title: t("formations.cms_title"), desc: t("formations.cms_desc"), pdf: wordpressPdf as string, filename: "Formation-WordPress-LeadWave.pdf" },
+    { tag: t("formations.ads_tag"), color: "var(--brand-red)", title: t("formations.ads_title"), desc: t("formations.ads_desc"), pdf: googleAdsPdf as string, filename: "Formation-GoogleAds-LeadWave.pdf" },
   ];
 
   return (
@@ -85,7 +88,7 @@ export default function Formations() {
                   <p className="text-sm text-muted-foreground flex-1">{c.desc}</p>
                   <div className="flex flex-col gap-2 pt-2">
                     <Link to="/contact" className="btn btn-primary">{t("formations.enroll")}</Link>
-                    <button className="btn btn-outline"><Download size={14} /> {t("formations.download_plan")}</button>
+                    <a href={c.pdf} download={c.filename} className="btn btn-outline"><Download size={14} /> {t("formations.download_plan")}</a>
                   </div>
                 </div>
               </div>

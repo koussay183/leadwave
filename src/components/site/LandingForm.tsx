@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { saveLead } from "@/lib/leads";
 import type { FormField } from "@/landings/types";
-import { ThankYouOverlay } from "./ThankYouOverlay";
 
 type Props = {
   landingKey: string;
@@ -25,8 +25,9 @@ export function LandingForm({
   footnote = "Places limitées · Sans engagement initial",
   className = "",
 }: Props) {
+  const navigate = useNavigate();
   const [values, setValues] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
   function update(name: string, v: string) {
@@ -39,17 +40,12 @@ export function LandingForm({
     setError(null);
     try {
       await saveLead(landingKey, landingSlug, values);
-      setStatus("success");
-      setValues({});
+      navigate("/merci");
     } catch (err) {
       console.error(err);
       setStatus("error");
       setError("Un problème est survenu. Réessayez dans un instant.");
     }
-  }
-
-  if (status === "success") {
-    return <ThankYouOverlay onClose={() => setStatus("idle")} />;
   }
 
   return (

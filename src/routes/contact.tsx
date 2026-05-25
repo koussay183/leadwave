@@ -2,13 +2,13 @@ import { Layout } from "@/components/site/Layout";
 import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import contact from "@/assets/contact-illustration.png";
-import { ThankYouOverlay } from "@/components/site/ThankYouOverlay";
 import { saveContactMessage } from "@/lib/contactMessages";
 
 export default function Contact() {
   const { t } = useTranslation();
-  const [sent, setSent] = useState(false);
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
@@ -23,8 +23,7 @@ export default function Contact() {
     setError(null);
     try {
       await saveContactMessage(form);
-      setSent(true);
-      setForm({ name: "", email: "", company: "", message: "" });
+      navigate("/merci");
     } catch (err) {
       console.error(err);
       setError("Un problème est survenu. Réessayez dans un instant.");
@@ -34,7 +33,7 @@ export default function Contact() {
   }
 
   const infoCards = [
-    { i: Mail, t: t("contact.email_label"), v: "info@leadwave.tn", c: "var(--brand-blue)" },
+    { i: Mail, t: t("contact.email_label"), v: "leadwavec@gmail.com", c: "var(--brand-blue)" },
     { i: Phone, t: t("contact.phone_label"), v: "+216 27 945 870", c: "var(--brand-red)" },
     { i: MapPin, t: t("contact.address_label"), v: t("contact.address_value"), c: "var(--brand-yellow)" },
   ];
@@ -42,7 +41,7 @@ export default function Contact() {
   const contactDetails = [
     { i: MapPin, t: t("contact.location_label"), v: t("contact.location_value"), c: "var(--brand-red)" },
     { i: Phone, t: t("contact.call_label"), v: "+216 27 945 870", c: "var(--brand-blue)" },
-    { i: Mail, t: t("contact.email_send_label"), v: "info@leadwave.tn", c: "var(--brand-yellow)" },
+    { i: Mail, t: t("contact.email_send_label"), v: "leadwavec@gmail.com", c: "var(--brand-yellow)" },
   ];
 
   return (
@@ -120,7 +119,6 @@ export default function Contact() {
           </button>
         </form>
       </section>
-      {sent && <ThankYouOverlay onClose={() => setSent(false)} />}
     </Layout>
   );
 }

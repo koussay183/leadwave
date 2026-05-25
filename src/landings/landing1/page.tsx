@@ -47,6 +47,9 @@ import {
 import type { LandingPageProps } from "../types";
 import trainingIllustration from "@/assets/training-illustration.png";
 import adsIllustration from "@/assets/ads-illustration.png";
+import googleAdsPdf from "@/assets/Formation Google Ads — Génération de Leads Durée totale _ 24 heures.pdf?url";
+import wordpressPdf from "@/assets/formation- Conception et Gestion de Projets Web avec WordPress.pdf?url";
+import seoPdf from "@/assets/Formation- SEO- LEAD WAVE.pdf?url";
 
 // Stable Unsplash photo URLs
 const unsplash = (id: string, w = 800, q = 80) =>
@@ -122,9 +125,9 @@ const modules = [
 
 const process = [
   { icon: PenLine, n: "01", t: "Inscription", d: "Remplissez le formulaire. Notre équipe vous rappelle sous 24 h pour valider votre profil." },
-  { icon: Search, n: "02", t: "Onboarding", d: "Diagnostic de niveau, accès à un compte démo et envoi des ressources." },
-  { icon: Rocket, n: "03", t: "Pratique encadrée", d: "Vous construisez vos campagnes en live, corrigées par le formateur." },
-  { icon: ShieldCheck, n: "04", t: "Certification", d: "Évaluation finale et certificat LeadWave." },
+  { icon: Search, n: "02", t: "Objectifs & structure", d: "Définir votre objectif publicitaire, choisir le type de campagne et comprendre la structure d'un compte Google Ads." },
+  { icon: Rocket, n: "03", t: "Mots-clés & annonces", d: "Recherche de mots-clés, rédaction des annonces textuelles et configuration des groupes d'annonces." },
+  { icon: ShieldCheck, n: "04", t: "Lancement & suivi", d: "Mise en ligne de votre première campagne, paramétrage du budget et lecture des premières statistiques." },
 ];
 
 const cases = [
@@ -172,6 +175,23 @@ const faqs = [
     a: "Vous remplissez le formulaire. Nous vous rappelons sous 24 h pour valider votre profil et vous envoyer le devis personnalisé.",
   },
 ];
+
+function downloadAllPdfs() {
+  [
+    { url: googleAdsPdf as string, name: "Formation-GoogleAds-LeadWave.pdf" },
+    { url: wordpressPdf as string, name: "Formation-WordPress-LeadWave.pdf" },
+    { url: seoPdf as string, name: "Formation-SEO-LeadWave.pdf" },
+  ].forEach(({ url, name }, i) => {
+    setTimeout(() => {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, i * 300);
+  });
+}
 
 export default function Landing1Page({
   slug = landing1DefaultSlug,
@@ -384,14 +404,15 @@ export default function Landing1Page({
           <Card className="mt-10 p-5 sm:p-6 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h3 className="font-bold text-base sm:text-lg">Vous voulez le programme complet ?</h3>
-              <p className="mt-1 text-sm text-muted-foreground">Téléchargez le PDF détaillé module par module.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Téléchargez les 3 programmes PDF (Google Ads, SEO, WordPress).</p>
             </div>
-            <a
-              href="#inscription"
+            <button
+              type="button"
+              onClick={downloadAllPdfs}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-5 py-3 text-sm font-semibold hover:bg-[color-mix(in_oklab,var(--brand-blue)_6%,white)] transition-colors"
             >
               <Download size={16} /> Télécharger le programme (PDF)
-            </a>
+            </button>
           </Card>
         </Section>
 
