@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import HomePage from "./routes/index";
 import FormationsPage from "./routes/formations";
@@ -22,6 +23,19 @@ function NotFoundPage() {
   );
 }
 
+function RouteTracker() {
+  const location = useLocation();
+  useEffect(() => {
+    (window as { dataLayer?: object[] }).dataLayer = (window as { dataLayer?: object[] }).dataLayer ?? [];
+    (window as { dataLayer: object[] }).dataLayer.push({
+      event: "virtualPageview",
+      page_path: location.pathname + location.search,
+      page_title: document.title,
+    });
+  }, [location]);
+  return null;
+}
+
 function FullScreenLoader() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
@@ -36,7 +50,9 @@ export default function App() {
   if (loading) return <FullScreenLoader />;
 
   return (
-    <Routes>
+    <>
+      <RouteTracker />
+      <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/formations" element={<FormationsPage />} />
       <Route path="/publicite-media" element={<PubliciteMediaPage />} />
@@ -49,5 +65,6 @@ export default function App() {
       })}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    </>
   );
 }
