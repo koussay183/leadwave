@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Loader2 } from "lucide-react";
 import HomePage from "./routes/index";
 import FormationsPage from "./routes/formations";
@@ -25,8 +25,13 @@ function NotFoundPage() {
 
 function RouteTracker() {
   const location = useLocation();
+  const isFirstRender = useRef(true);
   useEffect(() => {
-    (window as { dataLayer?: object[] }).dataLayer = (window as { dataLayer?: object[] }).dataLayer ?? [];
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // GTM handles the initial pageview via its container snippet
+    }
+    (window as { dataLayer?: object[] }).dataLayer ??= [];
     (window as { dataLayer: object[] }).dataLayer.push({
       event: "virtualPageview",
       page_path: location.pathname + location.search,
